@@ -1,0 +1,74 @@
+package cosmic.com.mvvmprj.adapter
+import android.content.Context
+import android.net.Uri
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import cosmic.com.mvvmprj.Github.GithubOwner
+import cosmic.com.mvvmprj.R
+
+class DataAdapter2 : RecyclerView.Adapter<DataAdapter2.DataViewHolder> {
+
+    internal var context: Context
+    internal var dataList: List<GithubOwner>
+    internal lateinit var owner: GithubOwner
+
+    constructor(context: Context, dataList: List<GithubOwner>) {
+        this.context = context
+        this.dataList = dataList
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search, parent, false)
+        return DataViewHolder(view)
+    }
+
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
+
+        owner = dataList[position]
+
+        val imageUri = Uri.parse(owner.avatar_url)
+        holder.tv_name.text = owner.login
+        val html = owner.html_url
+        holder.tv_html.text = html
+
+        val target = holder.imageView
+        Glide.with(context)
+            .load(imageUri)
+            .fitCenter()
+            .centerCrop()
+            .override(100, 100)
+            .into(target)
+    }
+
+
+    override fun getItemCount(): Int {
+        return dataList.size
+    }
+
+
+    inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        internal var tv_name: TextView
+        internal var tv_score: TextView
+        internal var tv_html: TextView
+        internal var imageView: ImageView
+        internal var saveBtn: ImageButton
+
+        init {
+            this.tv_name = itemView.findViewById(R.id.repo_name)
+            this.imageView = itemView.findViewById(R.id.repo_image)
+            this.tv_score = itemView.findViewById(R.id.repo_score)
+            this.saveBtn = itemView.findViewById(R.id.saveBtn)
+            this.tv_html = itemView.findViewById(R.id.repo_html)
+
+            saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
+        }
+
+
+    }
+}
