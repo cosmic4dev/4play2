@@ -92,7 +92,6 @@ class SecondActivity : AppCompatActivity(), SecondContract.View {
                     val a = secondPresenter.processConvert1(startTime)
                     val b = secondPresenter.processConvert2(endTime!!)
 
-                    Log.i(TAG,"a, b= "+a+", "+b)
                     secondPresenter.MakeMapData(a, b, name)
                 } else if (compare2 >= 1800) {
                     tv_office1.visibility = View.GONE
@@ -107,7 +106,6 @@ class SecondActivity : AppCompatActivity(), SecondContract.View {
     }
 
     private fun nonShowTopOfficeList(officename: String) {
-        Log.i(TAG,"걸러진 회의실: "+ officename)
 
         when (officename) {
             "회의실1" -> tv_office1.visibility = View.GONE
