@@ -1,15 +1,16 @@
 package cosmic.com.mvvmprj.view
 
 import android.content.res.Resources
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import cosmic.com.mvvmprj.R
+import cosmic.com.mvvmprj.contract.MainContract
 import cosmic.com.mvvmprj.contract.SecondContract
 import cosmic.com.mvvmprj.model.Office
 import cosmic.com.mvvmprj.model.OfficeList
@@ -19,15 +20,20 @@ import kotlinx.android.synthetic.main.activity_ui.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class SecondActivity : AppCompatActivity(), SecondContract.View {
+class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
+    ProgressAdapter.ClickListener {
+
+
 
     internal var officeList: OfficeList? = null
     internal lateinit var list: ArrayList<Office>
 
     internal lateinit var adjustTime: String
 
-    internal lateinit var map: HashMap<String, Int>
-    internal lateinit var drawables: ArrayList<Drawable>
+
+//    internal val adapter by lazy { ProgressAdapter(this,list).apply { setItemClickListener(this@SecondActivity) } }
+//    internal lateinit var map: HashMap<String, Int>
+//    internal lateinit var drawables: ArrayList<Drawable>
 
     internal lateinit var secondPresenter: SecondPresenter
     internal lateinit var adapter: ProgressAdapter
@@ -53,15 +59,21 @@ class SecondActivity : AppCompatActivity(), SecondContract.View {
 
         secondPresenter = SecondPresenter(this)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerView_office)
-        val layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
-        recyclerView.layoutManager = layoutManager
 
-        val getTime = currentTime
+        val layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
+        recyclerView_office.layoutManager = layoutManager
+
+//        val getTime = currentTime
+        val getTime="1100"
         var adjustTime=avaibleTimeCheck(getTime)
 
-        list=secondPresenter.newgetJsonString(adjustTime,resources);//조정된 시간 넣어주기
+        list=secondPresenter.newgetJsonString(adjustTime,resources);
         showOfficeTimeTable(adjustTime)
+
+//        var adapter = ProgressAdapter(this, list)
+        adapter=ProgressAdapter(this,list)
+//        adapter.clickListener(this)
+
 
     }
 
@@ -118,6 +130,7 @@ class SecondActivity : AppCompatActivity(), SecondContract.View {
     }
 
 
+
     private fun avaibleTimeCheck(time: String):String {
 
         val hourTime = time.substring(0, 2)
@@ -157,6 +170,15 @@ class SecondActivity : AppCompatActivity(), SecondContract.View {
         var adapter = ProgressAdapter(this, list)
         recyclerView_office.setAdapter(adapter)
     }
+
+    override fun onItemClicked(name: String?) {
+        Toast.makeText(applicationContext,"clicke::"+name,Toast.LENGTH_LONG).show()
+//        var getTitle=list.get(position).name
+//        var intent=Intent(this,BookActivity::class.java)
+//        intent.putExtra("officeName",getTitle)
+//        startActivity(intent)
+    }
+
 
     companion object {
 

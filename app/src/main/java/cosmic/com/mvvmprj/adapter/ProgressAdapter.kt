@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import cosmic.com.mvvmprj.R
 import cosmic.com.mvvmprj.model.Office
@@ -15,7 +16,13 @@ import java.util.*
 
 class ProgressAdapter(internal var context: Context, internal var lists: ArrayList<Office>) :
     RecyclerView.Adapter<ProgressAdapter.ViewHolder>() {
+
     internal lateinit var office: Office
+
+    internal var clickListener: ClickListener? = null
+
+
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_office, parent, false)
@@ -37,6 +44,21 @@ class ProgressAdapter(internal var context: Context, internal var lists: ArrayLi
         } else {
             holder.tv_current.text = ""
         }
+
+        holder.itemView.setOnClickListener{
+            clickListener?.onItemClicked(office.name)
+
+            Toast.makeText(context, "click: "+position,Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
+    interface ClickListener {
+        fun onItemClicked(name: String?)
+    }
+
+    fun setItemClickListener(clickListener: ClickListener?){
+        this.clickListener=clickListener
     }
 
 
@@ -61,3 +83,4 @@ class ProgressAdapter(internal var context: Context, internal var lists: ArrayLi
 
     }
 }
+

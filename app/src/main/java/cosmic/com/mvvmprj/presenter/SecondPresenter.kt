@@ -1,7 +1,6 @@
 package cosmic.com.mvvmprj.presenter
 
 import android.content.res.Resources
-import android.util.Log
 import com.google.gson.Gson
 import cosmic.com.mvvmprj.contract.SecondContract
 import cosmic.com.mvvmprj.model.Office
@@ -43,7 +42,6 @@ class SecondPresenter(private val secondView: SecondContract.View): SecondContra
                 val reservations = office.reservations
                 val timeBar = ProgressDrawable(map, name)
 
-                Log.i("TAG","확인: "+name)
                 list.add(Office(name, location, reservations, timeBar))
             }
         }

@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import cosmic.com.mvvmprj.Github.GitHubResult
@@ -93,11 +94,11 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
 
 
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var tv_name: TextView
-        internal var tv_score: TextView
-        internal var tv_html: TextView
-        internal var imageView: ImageView
-        internal var saveBtn: ImageButton
+        internal lateinit var tv_name: TextView
+        internal lateinit var tv_score: TextView
+        internal lateinit var tv_html: TextView
+        internal lateinit var imageView: ImageView
+        internal lateinit var saveBtn: ImageButton
 
         init {
             this.tv_name = itemView.findViewById(R.id.repo_name)
