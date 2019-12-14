@@ -21,7 +21,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
-    ProgressAdapter.ClickListener {
+    ProgressAdapter.ItemClickListener {
 
 
 
@@ -31,12 +31,13 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
     internal lateinit var adjustTime: String
 
 
-//    internal val adapter by lazy { ProgressAdapter(this,list).apply { setItemClickListener(this@SecondActivity) } }
+
+    internal val adapter by lazy { ProgressAdapter(this,list).apply { setOnClickListener(this@SecondActivity) } }
 //    internal lateinit var map: HashMap<String, Int>
 //    internal lateinit var drawables: ArrayList<Drawable>
 
     internal lateinit var secondPresenter: SecondPresenter
-    internal lateinit var adapter: ProgressAdapter
+//    internal lateinit var adapter: ProgressAdapter
     private val mResources: Resources? = null
 
     private val currentTime: String
@@ -71,9 +72,9 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
         showOfficeTimeTable(adjustTime)
 
 //        var adapter = ProgressAdapter(this, list)
-        adapter=ProgressAdapter(this,list)
-//        adapter.clickListener(this)
+        var adapter=ProgressAdapter(this,list)
 
+        adapter.setOnClickListener(this)
 
     }
 
@@ -171,19 +172,17 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
         recyclerView_office.setAdapter(adapter)
     }
 
-    override fun onItemClicked(name: String?) {
-        Toast.makeText(applicationContext,"clicke::"+name,Toast.LENGTH_LONG).show()
-//        var getTitle=list.get(position).name
-//        var intent=Intent(this,BookActivity::class.java)
-//        intent.putExtra("officeName",getTitle)
-//        startActivity(intent)
-    }
 
 
     companion object {
 
         internal val TAG = "Main"
         var convertedKey: Int = 0
+    }
+
+    override fun onClick( position: Int) {
+        Toast.makeText(applicationContext,"OK:"+position,Toast.LENGTH_LONG).show()
+        Log.i("TAG","#############OK")
     }
 
 }

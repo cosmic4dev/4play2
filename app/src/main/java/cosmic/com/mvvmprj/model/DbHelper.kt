@@ -13,14 +13,13 @@ class DbHelper(
     version: Int
 ) : SQLiteOpenHelper(context, name, factory, version) {
 
-    //
     val dataList: ArrayList<GithubOwner>
         get() {
 
             val dataList = ArrayList<GithubOwner>()
 
             val db = readableDatabase
-            val cursor = db.rawQuery("SELECT * FROM HUB", null)
+            val cursor = db.rawQuery("SELECT * FROM HUB2", null)
             if (cursor.moveToNext()) {
                 do {
                     val userData = GithubOwner()
@@ -28,6 +27,7 @@ class DbHelper(
                     userData.avatar_url = cursor.getString(2)
                     userData.html_url = cursor.getString(3)
                     userData.score = cursor.getFloat(4)
+                    userData.id=cursor.getInt(5)
 
 
                     dataList.add(userData)
@@ -42,17 +42,17 @@ class DbHelper(
 
     override fun onCreate(db: SQLiteDatabase) {
 
-        db.execSQL("CREATE TABLE HUB (_id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT, avatar_url TEXT, html_url TEXT, score FLOAT);")
+        db.execSQL("CREATE TABLE HUB2 (_id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT, avatar_url TEXT, html_url TEXT, score FLOAT, id INTEGER);")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
 
     }
 
-    fun insert(name: String, url: String, html: String, etc: Float) {
+    fun insert(name: String, url: String, html: String, etc: Float, id:Int) {
 
         val db = writableDatabase
-        db.execSQL("INSERT INTO HUB VALUES(null, '$name', '$url', '$html', '$etc');")
+        db.execSQL("INSERT INTO HUB2 VALUES(null, '$name', '$url', '$html', '$etc', '$id');")
     }
 
     fun getData(name: String): String {
@@ -60,7 +60,7 @@ class DbHelper(
         var result = ""
 
         try {
-            val cursor = db.rawQuery("SELECT * FROM HUB WHERE login='$name';", null)
+            val cursor = db.rawQuery("SELECT * FROM HUB2 WHERE login='$name';", null)
             while (cursor.moveToNext()) {
                 result = cursor.getString(1)
             }
@@ -73,10 +73,28 @@ class DbHelper(
         return result
     }
 
+    fun getId(id:Int): Int {
+        val db = readableDatabase
+
+        var result=0
+        try {
+            val cursor = db.rawQuery("SELECT * FROM HUB2 WHERE id='$id';", null)
+            while (cursor.moveToNext()) {
+                result = cursor.getInt(5)//id 값만 골내기
+            }
+        } catch (e: Exception) {
+
+        }
+
+        db.close()
+
+//        Log.i("TAG","getId???->"+result)
+        return result
+    }
 
     fun delete(name: String) {
         val db = writableDatabase
-        db.execSQL("DELETE FROM HUB WHERE login='$name';")
+        db.execSQL("DELETE FROM HUB2 WHERE login='$name';")
         db.close()
     }
 

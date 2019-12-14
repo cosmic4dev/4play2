@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import cosmic.com.mvvmprj.Github.GitHubResult
@@ -19,11 +19,11 @@ import cosmic.com.mvvmprj.model.User
 
 class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
 
-    internal var context: Context
-    internal  var gitHubResult: GitHubResult
+    internal lateinit var context: Context
+    internal lateinit var gitHubResult: GitHubResult
     internal lateinit var user: User
     internal lateinit var userName: String
-    internal var isLike: Boolean? = false
+    internal var isLike: Boolean = false
 
     constructor(context: Context?, gitHubResult: GitHubResult, name: String) {
         this.context = context!!
@@ -34,6 +34,11 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
     constructor(context: Context, gitHubResult: GitHubResult) {
         this.context = context
         this.gitHubResult = gitHubResult
+    }
+    constructor()
+
+    interface eventListener{
+        fun onClick()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
@@ -55,6 +60,9 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
         val html = user.html_url
         holder.tv_html.text = html
 
+        val id=user.id
+        Log.d("TAG", "id->$id")
+
         val target = holder.imageView
         Glide.with(context)
             .load(imageUri)
@@ -63,10 +71,25 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
             .override(100, 100)
             .into(target)
 
+        val dbHelper = DbHelper(context, "HUB2.db", null, 1)
+        val getdata = dbHelper.getData(userName)
+        val getId=dbHelper.getId(id)
+
+        if(id==getId){
+            Log.i("TAG","getid::"+getId)
+            Log.i("TAG","id::"+id)
+            holder.saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
+            isLike = true
+        }else{
+            holder.saveBtn.setBackgroundResource(R.drawable.baseline_favorite_border_black_18dp)
+//            isLike = false
+        }
+
+
         holder.saveBtn.setOnClickListener {
             if (isLike == false) {
                 user=gitHubResult.items[position]
-                saveLike(user.login, user.avatar_url, user.html_url, user.score)
+                saveLike(user.login, user.avatar_url, user.html_url, user.score, user.id)
                 holder.saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
                 isLike = true
             } else {
@@ -76,29 +99,54 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
             }
         }
 
+
+
     }
+
 
     private fun cancleLike(name: String) {
-        val dbHelper = DbHelper(context, "HUB.db", null, 1)
+        val dbHelper = DbHelper(context, "HUB2.db", null, 1)
         dbHelper.delete(name)
+        Toast.makeText(context,"좋아요 취",Toast.LENGTH_SHORT).show()
     }
 
-    private fun saveLike(name: String, url: String, html: String, etc: Float) {
-        val dbHelper = DbHelper(context, "HUB.db", null, 1)
-        dbHelper.insert(name, url, html, etc)
+    private fun saveLike(name: String, url: String, html: String, etc: Float, id:Int) {
+        val dbHelper = DbHelper(context, "HUB2.db", null, 1)
+        dbHelper.insert(name, url, html, etc, id)
+        Toast.makeText(context,"좋아",Toast.LENGTH_SHORT).show()
     }
 
     override fun getItemCount(): Int {
         return gitHubResult.items.size
     }
 
+//    fun checkLike(userName: String):Boolean {
+//        Log.i("TAG","체크라이크")
+//        val dbHelper = DbHelper(context, "HUB.db", null, 1)
+//        val getdata = dbHelper.getData(userName)
+//        var size=getdata.length
+//        Log.i("TAG","getdata정보:"+size)
+//
+//        var isLike:Boolean
+////            if (getdata == userName) {
+////            if(getdata==userName&&getdata.length==userName.length){
+//        if(getdata.equals(userName)&&getdata.length==size){
+//            saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
+//            isLike = true
+//        }else{
+//            saveBtn.setBackgroundResource(R.drawable.baseline_favorite_border_black_18dp)
+//            isLike = false
+//        }
+//        return isLike
+//    }
+
 
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal lateinit var tv_name: TextView
-        internal lateinit var tv_score: TextView
-        internal lateinit var tv_html: TextView
-        internal lateinit var imageView: ImageView
-        internal lateinit var saveBtn: ImageButton
+        internal  var tv_name: TextView
+        internal  var tv_score: TextView
+        internal  var tv_html: TextView
+        internal  var imageView: ImageView
+        internal  var saveBtn: ImageButton
 
         init {
             this.tv_name = itemView.findViewById(R.id.repo_name)
@@ -107,18 +155,28 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
             this.saveBtn = itemView.findViewById(R.id.saveBtn)
             this.tv_html = itemView.findViewById(R.id.repo_html)
 
-            checkLike(userName)
+//            checkLike(userName)
 
         }
 
-        fun checkLike(userName: String) {
-            val dbHelper = DbHelper(context, "HUB.db", null, 1)
-            val getdata = dbHelper.getData(userName)
-
-            if (getdata == userName) {
-                saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
-                isLike = true
-            }
-        }
+//        fun checkLike(userName: String):Boolean {
+//            Log.i("TAG","체크라이크")
+//            val dbHelper = DbHelper(context, "HUB.db", null, 1)
+//            val getdata = dbHelper.getData(userName)
+//            var size=getdata.length
+//            Log.i("TAG","getdata정보:"+size)
+//
+//            var isLike:Boolean
+////            if (getdata == userName) {
+////            if(getdata==userName&&getdata.length==userName.length){
+//            if(getdata.equals(userName)&&getdata.length==size){
+//                saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
+//                isLike = true
+//            }else{
+//                saveBtn.setBackgroundResource(R.drawable.baseline_favorite_border_black_18dp)
+//                isLike = false
+//            }
+//            return isLike
+//        }
     }
 }

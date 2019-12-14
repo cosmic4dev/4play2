@@ -68,6 +68,10 @@ class Fragment_search: Fragment(),MainContract.view {
         val adapter = DataAdapter(context,dataList,searchUserName)
         recyclerView_search1.adapter = adapter
 
+        //1212
+        adapter.notifyDataSetChanged()
+//        Toast.makeText(activity,"tab2",Toast.LENGTH_SHORT).show()
+
     }
 
     override fun showToast(msg: String) {

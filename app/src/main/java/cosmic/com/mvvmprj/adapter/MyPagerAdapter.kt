@@ -1,5 +1,6 @@
 package cosmic.com.mvvmprj.adapter
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -22,6 +23,7 @@ class MyPagerAdapter:FragmentPagerAdapter {
 
 
     override fun getItem(position: Int): Fragment {
+        Log.i("TAG","탭 클릭됨")
         return mData.get(position)
     }
 
@@ -30,6 +32,8 @@ class MyPagerAdapter:FragmentPagerAdapter {
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
+
+        Log.i("TAG","탭 클릭됨")
         return tabTitles[position]
     }
 }

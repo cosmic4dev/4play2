@@ -14,14 +14,16 @@ import cosmic.com.mvvmprj.R
 
 class DataAdapter2 : RecyclerView.Adapter<DataAdapter2.DataViewHolder> {
 
-    internal var context: Context
-    internal var dataList: List<GithubOwner>
+    internal lateinit var context: Context
+    internal lateinit var dataList: List<GithubOwner>
     internal lateinit var owner: GithubOwner
 
     constructor(context: Context, dataList: List<GithubOwner>) {
         this.context = context
         this.dataList = dataList
     }
+
+    constructor()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_search, parent, false)
