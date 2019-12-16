@@ -107,13 +107,13 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
     private fun cancleLike(name: String) {
         val dbHelper = DbHelper(context, "HUB2.db", null, 1)
         dbHelper.delete(name)
-        Toast.makeText(context,"좋아요 취",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"좋아요 취소",Toast.LENGTH_SHORT).show()
     }
 
     private fun saveLike(name: String, url: String, html: String, etc: Float, id:Int) {
         val dbHelper = DbHelper(context, "HUB2.db", null, 1)
         dbHelper.insert(name, url, html, etc, id)
-        Toast.makeText(context,"좋아",Toast.LENGTH_SHORT).show()
+        Toast.makeText(context,"좋아요",Toast.LENGTH_SHORT).show()
     }
 
     override fun getItemCount(): Int {
