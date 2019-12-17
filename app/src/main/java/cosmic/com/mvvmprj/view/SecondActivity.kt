@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -23,24 +22,14 @@ import java.util.*
 class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
     ProgressAdapter.ItemClickListener {
 
-
-
     internal var officeList: OfficeList? = null
     internal lateinit var list: ArrayList<Office>
-
     internal lateinit var adjustTime: String
-
-
-
     internal val adapter by lazy { ProgressAdapter(this,list).apply { setOnClickListener(this@SecondActivity) } }
-//    internal lateinit var map: HashMap<String, Int>
-//    internal lateinit var drawables: ArrayList<Drawable>
-
     internal lateinit var secondPresenter: SecondPresenter
-//    internal lateinit var adapter: ProgressAdapter
     private val mResources: Resources? = null
 
-    private val currentTime: String
+     val currentTime: String
         get() {
             val dateFormat = SimpleDateFormat("HHmm")
             val cTime = System.currentTimeMillis()
@@ -65,13 +54,12 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
         recyclerView_office.layoutManager = layoutManager
 
 //        val getTime = currentTime
-        val getTime="1100"
+        val getTime="0900"
         var adjustTime=avaibleTimeCheck(getTime)
 
         list=secondPresenter.newgetJsonString(adjustTime,resources);
         showOfficeTimeTable(adjustTime)
 
-//        var adapter = ProgressAdapter(this, list)
         var adapter=ProgressAdapter(this,list)
 
         adapter.setOnClickListener(this)
@@ -132,7 +120,7 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
 
 
 
-    private fun avaibleTimeCheck(time: String):String {
+     fun avaibleTimeCheck(time: String):String {
 
         val hourTime = time.substring(0, 2)
         val minuteTime = time.substring(2)
@@ -181,8 +169,6 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
     }
 
     override fun onClick( position: Int) {
-        Toast.makeText(applicationContext,"OK:"+position,Toast.LENGTH_LONG).show()
-        Log.i("TAG","#############OK")
     }
 
 }

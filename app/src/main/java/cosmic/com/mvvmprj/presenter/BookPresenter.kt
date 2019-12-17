@@ -1,22 +1,22 @@
 package cosmic.com.mvvmprj.presenter
 
 import android.content.res.Resources
+import android.util.Log
 import com.google.gson.Gson
-import cosmic.com.mvvmprj.contract.SecondContract
+import cosmic.com.mvvmprj.contract.BookContract
 import cosmic.com.mvvmprj.model.Office
 import cosmic.com.mvvmprj.model.OfficeList
 import cosmic.com.mvvmprj.view.ProgressDrawable
 import java.io.IOException
 import java.util.*
 
-class SecondPresenter(private val secondView: SecondContract.View): SecondContract.Presenter {
-
+class BookPresenter() : BookContract.presenter{
 
     internal lateinit var map: HashMap<String, Int>
     internal lateinit var list: ArrayList<Office>
     internal lateinit var officeList: OfficeList
 
-    override fun newgetJsonString(time:String,resouce: Resources):ArrayList<Office> {
+    override fun newgetJsonString(name:String,resouce: Resources):ArrayList<Office> {
 
         list = ArrayList()
         map = HashMap()
@@ -48,6 +48,11 @@ class SecondPresenter(private val secondView: SecondContract.View): SecondContra
 
         return list
     }
+    override fun comSeletedTime() {
+       var comTime= arrayListOf("0900","1000")
+        Log.i("TAG","예약된시간 : "+comTime)
+
+    }
 
     override fun MakeMapData(startPoint: Int, endPoint: Int, officeName: String?) {
         var inputKey: String
@@ -63,8 +68,8 @@ class SecondPresenter(private val secondView: SecondContract.View): SecondContra
             }
         }
 
-        secondView.showAvailableOfficeCode()
-        secondView.showList()
+//        secondView.showAvailableOfficeCode()
+//        secondView.showList()
     }
 
 

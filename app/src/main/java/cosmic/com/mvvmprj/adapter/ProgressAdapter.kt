@@ -54,6 +54,7 @@ class ProgressAdapter(internal var context: Context, internal var lists: ArrayLi
             office=lists[position]
             var intent =Intent(it.context,DetailActivity::class.java)
             intent.putExtra("name",office.name)
+            intent.putExtra("position",position)
             context.startActivity(intent)
 
             //test
