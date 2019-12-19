@@ -4,14 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="book"
-            type="cosmic.com.mvvmprj.model.Book" />
-        <variable
-            name="presenter"
-            type="cosmic.com.mvvmprj.presenter.SecondPresenter" />
-        <variable
-            name="viewmodel"
-            type="cosmic.com.mvvmprj.viewmodel.ViewModel" />
+            name="viewModel"
+            type="cosmic.com.mvvmprj.viewmodel.BookViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -54,7 +48,7 @@
             android:layout_marginStart="52dp"
             android:layout_marginTop="48dp"
             android:gravity="center_horizontal"
-            android:text="@{book.name}"
+            android:text="!!!"
             android:textSize="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.05"
@@ -106,6 +100,7 @@
                     style="@style/TextStyle7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="09:00" />
 
                 <Button
@@ -114,6 +109,7 @@
                     style="@style/TextStyle7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="09:30" />
 
                 <Button
@@ -122,6 +118,7 @@
                     style="@style/TextStyle7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="10:00" />
 
                 <Button
@@ -130,6 +127,7 @@
                     style="@style/TextStyle7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="10:30" />
 
                 <Button
@@ -138,6 +136,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="11:00" />
 
                 <Button
@@ -146,6 +145,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="11:30" />
 
                 <Button
@@ -154,6 +154,7 @@
                     style="@style/TextStyle7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="12:00" />
 
                 <Button
@@ -162,6 +163,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="12:30" />
 
                 <Button
@@ -170,6 +172,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="12:30" />
 
                 <Button
@@ -178,6 +181,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="13:00" />
 
                 <Button
@@ -186,6 +190,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="13:30" />
 
                 <Button
@@ -194,6 +199,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="14:00" />
 
                 <Button
@@ -202,6 +208,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="14:30" />
 
                 <Button
@@ -210,6 +217,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="15:00" />
 
                 <Button
@@ -218,6 +226,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="15:30" />
 
                 <Button
@@ -226,6 +235,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="16:00" />
 
                 <Button
@@ -234,6 +244,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="16:30" />
 
                 <Button
@@ -242,6 +253,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="17:00" />
 
                 <Button
@@ -250,6 +262,7 @@
                     android:background="@drawable/book_selector"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.addBookList()}"
                     android:text="17:30" />
 
 

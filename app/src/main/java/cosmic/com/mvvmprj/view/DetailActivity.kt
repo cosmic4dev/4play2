@@ -6,11 +6,14 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.ViewModelProviders
 import com.bumptech.glide.Glide
 import cosmic.com.mvvmprj.R
 import cosmic.com.mvvmprj.databinding.ActivityDetailBinding
 import cosmic.com.mvvmprj.model.Office
 import cosmic.com.mvvmprj.presenter.BookPresenter
+import cosmic.com.mvvmprj.viewmodel.BookViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
 import java.util.*
 
@@ -18,20 +21,22 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
     View.OnClickListener {
 
 
-    private lateinit var binding: ActivityDetailBinding
     private lateinit var secondActivity: SecondActivity
     internal lateinit var bookPresenter: BookPresenter
     internal lateinit var list: ArrayList<Office>
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_detail)
-//        binding= DataBindingUtil.setContentView(this, R.layout.activity_detail)
-//        binding.viewmodel= ViewModel()
+//        setContentView(R.layout.activity_detail)
+        var binding=DataBindingUtil.setContentView<ActivityDetailBinding>(this,R.layout.activity_detail)
+
+        binding.lifecycleOwner=this //라이브데이터 활용준비
+
+        val viewModel= ViewModelProviders.of(this)[BookViewModel::class.java]
+        binding.viewModel=viewModel
+
 
         var name = intent.getStringExtra("name")
         tv_book_officeName.setText(name)
@@ -40,8 +45,8 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         bookPresenter = BookPresenter()
         secondActivity = SecondActivity()
 
-        var time="0900"
-//        var time = secondActivity.currentTime
+//        var time="0900"
+        var time = secondActivity.currentTime
         var adjustTime = secondActivity.avaibleTimeCheck(time)
         list = bookPresenter.newgetJsonString(name, resources);
         showOfficeTimeTable(position, adjustTime)
@@ -87,6 +92,10 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         ).show()
 
 
+    }
+
+    override fun onNothingSelected(parent: AdapterView<*>?) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun onClick(v: View) {
