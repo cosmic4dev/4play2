@@ -6,7 +6,7 @@ import cosmic.com.mvvmprj.model.Office
 interface BookContract {
 
     interface view{
-
+        fun setImage()
     }
 
     interface presenter{

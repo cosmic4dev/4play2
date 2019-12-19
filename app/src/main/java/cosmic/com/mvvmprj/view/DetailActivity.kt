@@ -6,7 +6,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import cosmic.com.mvvmprj.R
 import cosmic.com.mvvmprj.databinding.ActivityDetailBinding
 import cosmic.com.mvvmprj.model.Office
@@ -36,7 +36,6 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         var name = intent.getStringExtra("name")
         tv_book_officeName.setText(name)
         var position=intent.getIntExtra("position",0)
-        Log.i("TAG","포지션은:"+position)
 
         bookPresenter = BookPresenter()
         secondActivity = SecondActivity()
@@ -47,19 +46,34 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
         list = bookPresenter.newgetJsonString(name, resources);
         showOfficeTimeTable(position, adjustTime)
 
-        t1.setOnClickListener {
-            setBook("0900")
+        setImage(position)
 
-        }
-
-//        t1.setOnClickListener(this)
+        t1.setOnClickListener(this)
+        t2.setOnClickListener(this)
+        t3.setOnClickListener(this)
+        t4.setOnClickListener(this)
+        t5.setOnClickListener(this)
+        t6.setOnClickListener(this)
+        t7.setOnClickListener(this)
 
         book_btn.setOnClickListener {
-            var bookTime = tv_book_time.text.toString()
-            doBook(bookTime)
+//            var bookTime =
+//            doBook(bookTime)
+
         }
 
 
+    }
+
+    private fun setImage(position: Int) {
+
+        val target = iv_conRoom
+        Glide.with(applicationContext)
+            .load(R.drawable.conroom1)
+            .fitCenter()
+            .centerCrop()
+            .override(700, 500)
+            .into(target)
     }
 
 
@@ -68,26 +82,38 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
         t1.isSelected = true
 
-        if (t1.isSelected) Toast.makeText(
-            applicationContext,
-            "예약됨: " + time,
+        if (t1.isSelected) Toast.makeText(applicationContext, "예약됨: " + time,
             Toast.LENGTH_SHORT
         ).show()
 
 
     }
 
-    override fun onClick(v: View?) {
+    override fun onClick(v: View) {
 
-        Toast.makeText(this, "클릭됨 : ", Toast.LENGTH_SHORT).show()
+        when(v.id){
+            R.id.t1 ->  t1.setSelected(!t1.isSelected())
+            R.id.t2 ->  t2.setSelected(!t2.isSelected())
+            R.id.t3 ->  t3.setSelected(!t3.isSelected())
+            R.id.t4 ->  t4.setSelected(!t4.isSelected())
+            R.id.t5 ->  t5.setSelected(!t5.isSelected())
+            R.id.t6 ->  t6.setSelected(!t6.isSelected())
+            R.id.t7 ->  t7.setSelected(!t7.isSelected())
+            R.id.t8 ->  t8.setSelected(!t8.isSelected())
+            R.id.t9 ->  t9.setSelected(!t9.isSelected())
+            R.id.t10 ->  t10.setSelected(!t10.isSelected())
+            R.id.t11 ->  t11.setSelected(!t11.isSelected())
+            R.id.t12 ->  t12.setSelected(!t12.isSelected())
+            R.id.t13 ->  t13.setSelected(!t13.isSelected())
+            R.id.t14 ->  t14.setSelected(!t14.isSelected())
+            R.id.t15 ->  t15.setSelected(!t15.isSelected())
+            R.id.t16 ->  t16.setSelected(!t16.isSelected())
+            R.id.t17 ->  t17.setSelected(!t17.isSelected())
+            R.id.t18 ->  t18.setSelected(!t18.isSelected())
 
+        }
     }
 
-    private fun setBook(stringTime: String) {
-        Log.i("TAG", "클릭")
-//        tv_book_time.text = Editable.Factory.getInstance().newEditable(stringTime)
-        tv_book_time.text = stringTime
-    }
 
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -128,7 +154,7 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
 
     }
 
-    private fun nonShowTopOfficeList(a: Int, b: Int) {
+     fun nonShowTopOfficeList(a: Int, b: Int) {
 
         for (n in a..b)
 
@@ -153,13 +179,6 @@ class DetailActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener,
                 17 -> t18.visibility = View.GONE
                 18 -> t19.visibility = View.GONE
 
-
             }
-    }
-
-    class BookAdapter {
-        class BookViewHolder(val binding: ActivityDetailBinding) :
-            RecyclerView.ViewHolder(binding.root)
-
     }
 }

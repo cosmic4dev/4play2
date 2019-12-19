@@ -31,6 +31,17 @@ class Fragment_like: Fragment(),MainContract.view {
 
         var temList:ArrayList<GithubOwner> = ArrayList()
 
+        //room
+//        val db = Room.databaseBuilder(
+//            context!!.applicationContext,
+//            AppDatabase::class.java, "database-name"
+//        ).build()
+//
+//        for (item in db.userDao().getAll()){
+//            temList.add(item)
+//        }
+
+        //기본 sqlite 방식
         var dbHelper = DbHelper(activity,"HUB2.db", null, 1)
 
         for(item in dbHelper.dataList) {

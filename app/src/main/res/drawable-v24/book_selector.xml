@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:state_checked="true"
-        android:drawable="@color/deep_sky_blue"> </item>
+    <item android:state_selected="true"
+        android:drawable="@color/colorAccent"> </item>
 
-    <item android:state_checked="false"
-        android:drawable="@color/very_light_blue"></item>
-
+    <item android:state_activated="false"
+        android:drawable="@color/deep_sky_blue"></item>
 
 </selector>

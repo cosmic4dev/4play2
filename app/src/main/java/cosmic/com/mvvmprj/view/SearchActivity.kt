@@ -35,8 +35,19 @@ class SearchActivity: AppCompatActivity()  {
 
                 var temList:ArrayList<GithubOwner> = ArrayList()
 
-                var dbHelper = DbHelper(applicationContext,"HUB2.db", null, 1)
+                //room
+//                val db = Room.databaseBuilder(
+//                    applicationContext,
+//                    AppDatabase::class.java, "database-name"
+//                ).allowMainThreadQueries().build()
+//
+//                for (item in db.userDao().getAll()){
+//                    temList.add(item)
+//                }
 
+
+// 기존 sqlite
+                var dbHelper = DbHelper(applicationContext,"HUB2.db", null, 1)
                 for(item in dbHelper.dataList) {
                     temList.add(item)
                 }
@@ -45,9 +56,6 @@ class SearchActivity: AppCompatActivity()  {
                 recyclerView_search2.adapter=adapter
                 adapter.notifyDataSetChanged()
 
-//                val adapter2= DataAdapter()
-//                recyclerView_search1.adapter=adapter2
-//                adapter2.notifyDataSetChanged()
 
             }
 
