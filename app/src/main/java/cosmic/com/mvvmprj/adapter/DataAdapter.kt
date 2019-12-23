@@ -19,8 +19,8 @@ import cosmic.com.mvvmprj.model.User
 
 class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
 
-    internal lateinit var context: Context
-    internal lateinit var gitHubResult: GitHubResult
+    internal  var context: Context
+    internal  var gitHubResult: GitHubResult
     internal lateinit var user: User
     internal lateinit var userName: String
     internal var isLike: Boolean = false
@@ -34,11 +34,6 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
     constructor(context: Context, gitHubResult: GitHubResult) {
         this.context = context
         this.gitHubResult = gitHubResult
-    }
-    constructor()
-
-    interface eventListener{
-        fun onClick()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
@@ -98,9 +93,6 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
                 isLike = false
             }
         }
-
-
-
     }
 
 
@@ -155,28 +147,7 @@ class DataAdapter : RecyclerView.Adapter<DataAdapter.DataViewHolder> {
             this.saveBtn = itemView.findViewById(R.id.saveBtn)
             this.tv_html = itemView.findViewById(R.id.repo_html)
 
-//            checkLike(userName)
-
         }
 
-//        fun checkLike(userName: String):Boolean {
-//            Log.i("TAG","체크라이크")
-//            val dbHelper = DbHelper(context, "HUB.db", null, 1)
-//            val getdata = dbHelper.getData(userName)
-//            var size=getdata.length
-//            Log.i("TAG","getdata정보:"+size)
-//
-//            var isLike:Boolean
-////            if (getdata == userName) {
-////            if(getdata==userName&&getdata.length==userName.length){
-//            if(getdata.equals(userName)&&getdata.length==size){
-//                saveBtn.setBackgroundResource(R.drawable.baseline_favorite_black_18dp)
-//                isLike = true
-//            }else{
-//                saveBtn.setBackgroundResource(R.drawable.baseline_favorite_border_black_18dp)
-//                isLike = false
-//            }
-//            return isLike
-//        }
     }
 }

@@ -11,6 +11,7 @@ import cosmic.com.mvvmprj.Github.GithubOwner
 import cosmic.com.mvvmprj.R
 import cosmic.com.mvvmprj.adapter.DataAdapter2
 import cosmic.com.mvvmprj.contract.MainContract
+import cosmic.com.mvvmprj.databinding.FragmentLikeBinding
 import cosmic.com.mvvmprj.model.DbHelper
 import cosmic.com.mvvmprj.presenter.MainPresenter
 import kotlinx.android.synthetic.main.fragment_like.view.*
@@ -21,15 +22,25 @@ class Fragment_like: Fragment(),MainContract.view {
     internal var dataList: List<GithubOwner> ?=null
     var presenter: MainPresenter?=null
     var temList:ArrayList<GithubOwner>?=null
+    lateinit var binding:FragmentLikeBinding
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_like, container,false)
 
+//        binding= DataBindingUtil.inflate(inflater,R.layout.fragment_like,container,false)
+//        binding.lifecycleOwner=this
+
+//        val viewModel=ViewModelProviders.of(this)[SearchViewModel::class.java]
+//        binding.viewModel =viewModel
+
         rootView.recyclerView_search2.layoutManager = LinearLayoutManager(activity)
 
         var temList:ArrayList<GithubOwner> = ArrayList()
+
+
+
 
         //room
 //        val db = Room.databaseBuilder(
@@ -52,9 +63,8 @@ class Fragment_like: Fragment(),MainContract.view {
         rootView.recyclerView_search2.adapter=adapter
 //        getLikeData(rootView)
         adapter.notifyDataSetChanged()
-
-
         return rootView
+//        return binding.root
     }
 
 

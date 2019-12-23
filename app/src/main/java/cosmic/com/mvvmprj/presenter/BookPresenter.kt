@@ -9,8 +9,10 @@ import cosmic.com.mvvmprj.model.OfficeList
 import cosmic.com.mvvmprj.view.ProgressDrawable
 import java.io.IOException
 import java.util.*
+import kotlin.collections.ArrayList
 
 class BookPresenter() : BookContract.presenter{
+
 
     internal lateinit var map: HashMap<String, Int>
     internal lateinit var list: ArrayList<Office>
@@ -48,6 +50,8 @@ class BookPresenter() : BookContract.presenter{
 
         return list
     }
+
+
     override fun comSeletedTime() {
        var comTime= arrayListOf("0900","1000")
         Log.i("TAG","예약된시간 : "+comTime)

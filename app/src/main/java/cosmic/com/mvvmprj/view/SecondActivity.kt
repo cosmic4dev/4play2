@@ -53,7 +53,7 @@ class SecondActivity : AppCompatActivity(), SecondContract.View,MainContract,
         val layoutManager = LinearLayoutManager(applicationContext, RecyclerView.VERTICAL, false)
         recyclerView_office.layoutManager = layoutManager
 
-        val getTime = currentTime
+         val getTime = currentTime
 //        val getTime="0900"
         var adjustTime=avaibleTimeCheck(getTime)
 

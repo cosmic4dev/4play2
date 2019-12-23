@@ -7,6 +7,7 @@ interface BookContract {
 
     interface view{
         fun setImage()
+        fun showAlert()
     }
 
     interface presenter{

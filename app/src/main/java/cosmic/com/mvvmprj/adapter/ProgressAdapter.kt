@@ -9,7 +9,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import cosmic.com.mvvmprj.model.Office
-import cosmic.com.mvvmprj.view.DetailActivity
+import cosmic.com.mvvmprj.view.BookActivity
 import cosmic.com.mvvmprj.view.SecondActivity
 import java.util.*
 
@@ -52,7 +52,7 @@ class ProgressAdapter(internal var context: Context, internal var lists: ArrayLi
         holder.itemView.setOnClickListener{
 
             office=lists[position]
-            var intent =Intent(it.context,DetailActivity::class.java)
+            var intent =Intent(it.context,BookActivity::class.java)
             intent.putExtra("name",office.name)
             intent.putExtra("position",position)
             context.startActivity(intent)

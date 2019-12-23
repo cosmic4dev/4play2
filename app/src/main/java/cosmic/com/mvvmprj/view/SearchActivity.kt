@@ -34,17 +34,17 @@ class SearchActivity: AppCompatActivity()  {
             override fun onTabSelected(tab: TabLayout.Tab) {
 
                 var temList:ArrayList<GithubOwner> = ArrayList()
-
-                //room
+                //room ->databaseprovider로 이동 (싱글톤처리)
 //                val db = Room.databaseBuilder(
 //                    applicationContext,
 //                    AppDatabase::class.java, "database-name"
 //                ).allowMainThreadQueries().build()
-//
-//                for (item in db.userDao().getAll()){
-//                    temList.add(item)
-//                }
 
+//                temList=viewModel.getAll()
+
+//                temList= TodoDAO.getAll()
+//                Log.i("TAG","temListSize::"+temList.size)
+//                temList=UserDAO.getAll()
 
 // 기존 sqlite
                 var dbHelper = DbHelper(applicationContext,"HUB2.db", null, 1)
